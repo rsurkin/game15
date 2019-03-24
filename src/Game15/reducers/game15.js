@@ -11,7 +11,7 @@ export default (game15 = {}, {type, id}) => {
     case 'SAVE':
       return save(game15);
     case 'RESTORE':
-      return restore();
+      return restore(game15);
     default:
       return game15;
   }
@@ -31,11 +31,15 @@ const save = (game15) => {
   }
 }
 
-const restore = () => {
+const restore = (game15) => {
   // в идеале какую то схему, котороая провалидирует JSON, но я себе доверяю
   const newGame15 = JSON.parse(
     localStorage.getItem(GAME_SAVE_KEY)
   );
+
+  if (!newGame15) {
+    return game15;
+  }
 
   return {
     ...newGame15
