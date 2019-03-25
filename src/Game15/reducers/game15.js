@@ -111,13 +111,15 @@ const moveTile = (game15, id) => {
 };
 
 const moveAvailable = (tiles, id) => {
-  const positionOfZero = tiles.indexOf(0);
-  const positionOfElement = tiles.indexOf(id);
+  const positionOfZero = tiles.indexOf(0) + 1;
+  const positionOfElement = tiles.indexOf(id) + 1;
+
+  const elementNotLastAtString = (positionOfElement % 4) !== 0;
+  const elementNotFirstAtString = (positionOfElement % 4) !== 1;
 
   return (
-    positionOfElement + 1 === positionOfZero
-    || positionOfElement - 1 === positionOfZero
-    || positionOfElement - 1 === positionOfZero
+    (positionOfElement + 1 === positionOfZero && elementNotLastAtString)
+    || (positionOfElement - 1 === positionOfZero && elementNotFirstAtString)
     || positionOfElement - 4 === positionOfZero
     || positionOfElement + 4 === positionOfZero
   )
